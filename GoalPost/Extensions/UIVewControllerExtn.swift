@@ -16,7 +16,29 @@ extension UIViewController {
         transition.subtype = CATransitionSubtype.fromRight
         self.view.window?.layer.add(transition, forKey: kCATransition)
         
+        viewControllerToPresent.modalPresentationStyle = .fullScreen
+        
         present(viewControllerToPresent, animated: false, completion: nil)
+    }
+    
+    //Dismissing the first VC so that we can present the next one right after and then dismiss to the beginning.
+    func presentSecondaryDetail(_ viewControllerToPresent: UIViewController) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        
+        guard let presentedVC = presentedViewController else { return }
+        
+        presentedVC.dismiss(animated: false) {
+            self.view.window?.layer.add(transition, forKey: kCATransition)
+            
+            viewControllerToPresent.modalPresentationStyle = .fullScreen
+            
+            self.present(viewControllerToPresent, animated: false, completion: nil)
+
+            
+        }
     }
     
     func dismissDetail() {
