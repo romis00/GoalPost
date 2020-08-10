@@ -21,8 +21,9 @@ class GoalCell: UITableViewCell {
     }
 
     func configureCEll(goal: Goal) {
+        let goalType: String = goal.goalType! + ": " + String(goal.goalComplition)
         self.goalDescriptionLabel.text = goal.goalDescription
-        self.goalTypeLabel.text = goal.goalType
+        self.goalTypeLabel.text = goalType
         self.goalProgressLabel.text = String(goal.goalProgress)
         
         if goal.goalProgress == goal.goalComplition {
